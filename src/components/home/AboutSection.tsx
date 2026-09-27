@@ -157,7 +157,7 @@ export default function AboutSection() {
               Read More
               </motion.button>
                 <motion.img
-                  src="/images/bag.png"
+                  src="/images/bag.PNG"
                   alt=""
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
