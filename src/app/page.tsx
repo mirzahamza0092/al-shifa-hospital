@@ -4,6 +4,8 @@ import WorkingHoursSection from '@/components/home/WorkingHoursSection'
 import TeamSection from '@/components/home/TeamSection'
 import GallerySection from '@/components/home/GallerySection'
 import ServicesSection from '@/components/home/ServicesSection'
+import TestimonialSection from '@/components/home/TestimonialSection'
+import BlogSection from '@/components/home/BlogSection'
 
 export default function HomePage() {
   return (
@@ -14,6 +16,8 @@ export default function HomePage() {
       <TeamSection />
       <GallerySection />
       <ServicesSection />
+      <TestimonialSection />
+      <BlogSection />
     </>
   )
 }

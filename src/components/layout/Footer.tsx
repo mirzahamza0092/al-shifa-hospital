@@ -1,10 +1,43 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowUp, Phone, MapPin } from 'lucide-react'
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa'
+import FloatingIcon from '@/components/ui/FloatingIcon'
+
+const SOCIALS = [
+  { Icon: FaFacebookF, color: '#1877f2' },
+  { Icon: FaTwitter, color: '#1d9bf0' },
+  { Icon: FaInstagram, color: '#e1306c' },
+  { Icon: FaLinkedinIn, color: '#0a66c2' },
+  { Icon: FaYoutube, color: '#ff0000' },
+]
+
+const PHONES = [
+  { label: 'Medical Information', number: '051-1234567' },
+  { label: 'Appointment', number: '051-1234568' },
+  { label: 'Hospital Exchange', number: '051-1234569' },
+]
+
+const inputClass =
+  'w-full bg-white rounded-lg px-4 py-3 text-sm text-slate-700 placeholder:text-slate-700 shadow-[0_4px_14px_rgba(15,37,87,0.08)] outline-none focus:ring-2 focus:ring-amber-300'
+
+function Heading({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mb-5">
+      <h4 className="text-blue-900 font-bold text-lg">{children}</h4>
+      <span
+        className="block mt-1 h-[5px] w-9"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(-45deg, #f59e0b 0 2px, transparent 2px 5px)',
+        }}
+      />
+    </div>
+  )
+}
 
 export default function Footer() {
   const [showTop, setShowTop] = useState(false)
@@ -13,9 +46,11 @@ export default function Footer() {
   const [mobile, setMobile] = useState('')
   const [message, setMessage] = useState('')
 
-  if (typeof window !== 'undefined') {
-    window.onscroll = () => setShowTop(window.scrollY > 400)
-  }
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 400)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -27,54 +62,72 @@ export default function Footer() {
   }
 
   return (
-    <footer style={{ background: '#0f2557', color: '#cbd5e1', padding: '4rem 1.5rem 1.5rem' }}>
-      <div
-        className="footer-grid"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '2.5rem',
-          maxWidth: '1400px',
-          margin: '0 auto',
-        }}
-      >
-        {/* Column 1: Logo + Address */}
+    <footer
+      className="relative bg-white overflow-hidden pt-28 md:pt-40 pb-6 px-4 sm:px-6 md:px-12"
+      style={{
+        backgroundImage: "url('/images/footerBack.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'top center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <FloatingIcon
+        src="/images/hartAndPlus.png"
+        animation="spin"
+        duration={2.5}
+        distance={10}
+        className="hidden md:block absolute right-6 top-28 w-10 h-10 object-contain"
+      />
+      <FloatingIcon
+        src="/images/anbulance.png"
+        animation="sway"
+        duration={3.5}
+        distance={80}
+        className="hidden md:block absolute left-[12%] top-24 w-20 h-20 object-contain"
+      />
+
+      <div className="relative max-w-[1200px] mx-auto h-16 hidden md:block">
+        <motion.img
+          src="/images/ambulance.png"
+          alt=""
+          initial={{ x: 0 }}
+          animate={{ x: 300 }}
+          transition={{ duration: 2.4, repeat: Infinity, repeatType: 'mirror', ease: 'linear' }}
+          className="absolute bottom-0 left-0 w-20 h-auto"
+        />
+      </div>
+
+      <div className="relative max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.3fr] gap-10">
         <div>
-          <h3 style={{ color: 'white', fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.3rem' }}>
-            AL SHIFA HOSPITAL
-          </h3>
-          <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '1rem' }}>MB DIN</p>
-          <p style={{ fontSize: '0.9rem', lineHeight: 1.6, display: 'flex', gap: '0.5rem' }}>
-            <MapPin size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
+          <img
+            src="/images/logoImage.png"
+            alt="Al Shifa Hospital"
+            className="w-32 h-auto mb-4"
+          />
+
+          <p className="text-sm text-slate-600 leading-relaxed flex gap-2">
+            <MapPin size={18} className="shrink-0 mt-0.5 text-amber-500" />
             Main Road, MB Din, Punjab, Pakistan
           </p>
 
-          <div style={{ display: 'flex', gap: '0.8rem', marginTop: '1.2rem' }}>
-            {[FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube].map((Icon, i) => (
-              <motion.a
-                key={i}
-                href="#"
-                whileHover={{ scale: 1.15, background: '#f59e0b' }}
-                style={{
-                  width: '34px',
-                  height: '34px',
-                  borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.1)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                }}
-              >
-                <Icon size={16} />
-              </motion.a>
+          <div className="mt-6 space-y-3">
+            {PHONES.map((p) => (
+              <div key={p.label} className="flex items-center gap-3">
+                <span className="w-9 h-9 rounded-full bg-amber-400 text-white flex items-center justify-center shrink-0">
+                  <Phone size={16} />
+                </span>
+                <div className="leading-tight">
+                  <p className="text-[0.7rem] font-semibold text-amber-500">{p.label}</p>
+                  <p className="text-sm font-bold text-blue-900">{p.number}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
 
         {/* Column 2: Quick Links */}
         <div>
-          <h4 style={{ color: 'white', fontWeight: 700, marginBottom: '1rem' }}>Quick Links</h4>
+          <Heading>Quick Links</Heading>
           {[
             { label: 'About Us', href: '/about' },
             { label: 'Services', href: '/services' },
@@ -85,16 +138,16 @@ export default function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              style={{ display: 'block', color: '#cbd5e1', textDecoration: 'none', fontSize: '0.9rem', marginBottom: '0.7rem' }}
+              className="block text-sm text-slate-700 mb-3 hover:text-amber-500 transition"
             >
               {link.label}
             </Link>
           ))}
         </div>
 
-        {/* Column 3: Our Service Links */}
+        {/* Column 3: Our Services */}
         <div>
-          <h4 style={{ color: 'white', fontWeight: 700, marginBottom: '1rem' }}>Our Services</h4>
+          <Heading>Our Service</Heading>
           {[
             { label: 'Surgical', href: '/services/surgical' },
             { label: 'Medicine', href: '/services/medicine' },
@@ -106,145 +159,88 @@ export default function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              style={{ display: 'block', color: '#cbd5e1', textDecoration: 'none', fontSize: '0.9rem', marginBottom: '0.7rem' }}
+              className="block text-sm text-slate-700 mb-3 hover:text-amber-500 transition"
             >
               {link.label}
             </Link>
           ))}
         </div>
 
-        {/* Column 4: Contact mini-form */}
+        {/* Column 4: Contact form */}
         <div>
-          <h4 style={{ color: 'white', fontWeight: 700, marginBottom: '1rem' }}>Contact Us</h4>
-          <form onSubmit={handleSend} style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+          <Heading>Contact Us</Heading>
+          <form onSubmit={handleSend} className="flex flex-col gap-4">
             <input
+              className={inputClass}
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              style={{ padding: '0.5rem', borderRadius: '6px', border: 'none', fontSize: '0.85rem' }}
               required
             />
             <input
+              className={inputClass}
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{ padding: '0.5rem', borderRadius: '6px', border: 'none', fontSize: '0.85rem' }}
               required
             />
             <input
-              placeholder="Mobile Number"
+              className={inputClass}
+              placeholder="Mobile Number 03XXXXXXXXX"
               value={mobile}
               onChange={(e) => setMobile(e.target.value)}
-              style={{ padding: '0.5rem', borderRadius: '6px', border: 'none', fontSize: '0.85rem' }}
               required
             />
             <textarea
-              placeholder="Message"
+              className={`${inputClass} min-h-[70px] resize-none`}
+              placeholder="Type Message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              style={{ padding: '0.5rem', borderRadius: '6px', border: 'none', fontSize: '0.85rem', minHeight: '60px' }}
               required
             />
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               type="submit"
-              style={{
-                background: '#f59e0b',
-                color: 'white',
-                border: 'none',
-                padding: '0.6rem',
-                borderRadius: '6px',
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
+              className="bg-amber-400 text-white font-semibold rounded-lg py-3 shadow-[0_6px_16px_rgba(245,158,11,0.3)]"
             >
               Send OTP
             </motion.button>
           </form>
+
+          <div className="flex gap-4 mt-5">
+            {SOCIALS.map(({ Icon, color }, i) => (
+              <motion.a
+                key={i}
+                href="#"
+                whileHover={{ scale: 1.2 }}
+                style={{ color }}
+              >
+                <Icon size={18} />
+              </motion.a>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Phone numbers row */}
-      <div
-        style={{
-          maxWidth: '1400px',
-          margin: '2.5rem auto 0',
-          paddingTop: '1.5rem',
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-          display: 'flex',
-          gap: '2rem',
-          flexWrap: 'wrap',
-          fontSize: '0.85rem',
-        }}
-      >
-        <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-          <Phone size={15} /> Medical Information: 051-1234567
-        </span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-          <Phone size={15} /> Appointment: 051-1234568
-        </span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-          <Phone size={15} /> Hospital Exchange: 051-1234569
-        </span>
-      </div>
-
       {/* Copyright */}
-      <div
-        style={{
-          maxWidth: '1400px',
-          margin: '1.5rem auto 0',
-          paddingTop: '1rem',
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-          textAlign: 'center',
-          fontSize: '0.8rem',
-          color: '#94a3b8',
-        }}
-      >
-        © {new Date().getFullYear()} Al Shifa Hospital MB Din. All Rights Reserved.
+      <div className="relative max-w-[1200px] mx-auto mt-10 pt-4 border-t border-slate-300 text-center text-xs text-slate-600">
+        © {new Date().getFullYear()} Al Shifa Hospital MB Din.{' '}
+        <span className="text-amber-500">All Rights Reserved</span>
       </div>
 
-      {/* Scroll to top button */}
+      {/* Scroll to top */}
       {showTop && (
         <motion.button
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.1 }}
           onClick={scrollToTop}
-          style={{
-            position: 'fixed',
-            bottom: '1.5rem',
-            right: '1.5rem',
-            width: '48px',
-            height: '48px',
-            borderRadius: '50%',
-            background: '#f59e0b',
-            color: 'white',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-            zIndex: 200,
-          }}
+          className="fixed bottom-6 right-6 z-[200] w-12 h-12 rounded-full bg-blue-900 text-white flex items-center justify-center shadow-lg"
         >
           <ArrowUp size={22} />
         </motion.button>
       )}
-
-      <style jsx>{`
-        @media (max-width: 900px) {
-          .footer-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
-        @media (max-width: 550px) {
-          .footer-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </footer>
   )
 }
