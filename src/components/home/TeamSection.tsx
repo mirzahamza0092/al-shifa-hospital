@@ -12,7 +12,8 @@ export default function TeamSection() {
   const loopedDoctors = [...doctors, ...doctors]
 
   return (
-    <section className="relative bg-white mt-10 md:mt-16 pt-16 md:pt-20 pb-16 md:pb-20 overflow-hidden">
+    <div className="bg-white pt-10 md:pt-16">
+    <section className="relative bg-white pt-16 md:pt-20 pb-16 md:pb-20 overflow-hidden">
       <div className="hidden md:block absolute right-0 top-0 h-full w-[46%] rounded-l-[3rem] bg-blue-900 z-0" />
       <div className="hidden md:block absolute left-0 top-0 h-full w-[38%] bg-white z-20" />
 
@@ -45,7 +46,7 @@ export default function TeamSection() {
       </div>
 
           <h2 className="text-blue-900 font-extrabold leading-[1.15] mb-5 text-[1.8rem] sm:text-[2.1rem] md:text-[2.3rem]">
-            Pakistan Air Force Hospital Islamabad - Trusted Healthcare
+            Al-Shifa Hospital Mandi Bahauddin - Trusted Healthcare
           </h2>
 
           <p className="text-slate-600 leading-relaxed mb-8">
@@ -108,5 +109,6 @@ export default function TeamSection() {
         }
       `}</style>
     </section>
+    </div>
   )
 }
