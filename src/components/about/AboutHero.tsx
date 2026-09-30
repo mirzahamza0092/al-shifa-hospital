@@ -6,7 +6,17 @@ import { HEADER_HEIGHT } from '@/components/layout/Header'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import { Home } from 'lucide-react'
 
-export default function AboutHero() {
+interface AboutHeroProps {
+  title?: string
+  icon?: string
+  iconAnimation?: 'drive' | 'float' | 'sway' | 'spin'
+}
+
+export default function AboutHero({
+  title = 'About Us',
+  icon = '/images/anbulance.png',
+  iconAnimation = 'drive',
+}: AboutHeroProps) {
   return (
     <section
       className="relative z-[1] overflow-hidden bg-[#f8fafc]"
@@ -22,14 +32,24 @@ export default function AboutHero() {
         className="absolute left-0 top-0 w-full h-full object-cover z-0 pointer-events-none"
       />
 
-    <motion.img
-        src="/images/anbulance.png"
-        alt=""
-        initial={{ x: 250 }}
-        animate={{ x: 100 }}
-        transition={{ duration: 2.4, repeat: Infinity, repeatType: 'mirror', ease: 'linear' }}
-        className="hidden md:block absolute bottom-6 left-[28%] w-16 h-auto z-[3]"
-      />
+      {iconAnimation === 'drive' ? (
+        <motion.img
+          src={icon}
+          alt=""
+          initial={{ x: 250 }}
+          animate={{ x: 100 }}
+          transition={{ duration: 2.4, repeat: Infinity, repeatType: 'mirror', ease: 'linear' }}
+          className="hidden md:block absolute bottom-6 left-[28%] w-16 h-auto z-[3]"
+        />
+      ) : (
+        <FloatingIcon
+          src={icon}
+          animation={iconAnimation}
+          duration={2.5}
+          distance={10}
+          className="hidden md:block absolute bottom-8 left-[28%] w-14 h-14 object-contain z-[3]"
+        />
+      )}
       <FloatingIcon
         src="/images/hartAndPlus.png"
         animation="spin"
@@ -51,7 +71,7 @@ export default function AboutHero() {
         className="relative z-[2] text-center pt-10 pb-14 px-4 min-h-[220px] sm:min-h-[260px] md:min-h-[300px] flex flex-col items-center justify-center"
       >
         <h1 className="text-blue-900 font-extrabold text-[2.2rem] sm:text-[2.8rem] md:text-[3.4rem]">
-          About Us
+          {title}
         </h1>
 
         <div className="inline-flex items-center gap-2.5 mt-4 bg-blue-900 text-white text-sm font-semibold px-7 py-3 rounded-xl shadow-[0_8px_20px_rgba(30,58,138,0.25)]">
@@ -60,7 +80,7 @@ export default function AboutHero() {
             Home
           </Link>
           <span className="text-white/50">/</span>
-          <span>About Us</span>
+          <span>{title}</span>
         </div>
       </motion.div>
     </section>

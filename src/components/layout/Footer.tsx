@@ -63,7 +63,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative bg-white overflow-hidden pt-28 md:pt-40 pb-6 px-4 sm:px-6 md:px-12"
+      className="relative bg-white overflow-hidden pt-28 md:pt-40 pb-6 px-4 sm:px-6 md:px-12 bg-[length:100%_auto] md:bg-cover"
       style={{
         backgroundImage: "url('/images/footerBack.jpg')",
         backgroundSize: 'cover',
@@ -97,8 +97,8 @@ export default function Footer() {
         />
       </div>
 
-      <div className="relative max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.3fr] gap-10">
-        <div>
+      <div className="relative max-w-[1200px] mx-auto grid grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.3fr] gap-x-4 gap-y-10 sm:gap-10">
+        <div className="col-span-2 lg:col-span-1">
           <img
             src="/images/logoImage.png"
             alt="Al Shifa Hospital"
@@ -167,7 +167,7 @@ export default function Footer() {
         </div>
 
         {/* Column 4: Contact form */}
-        <div>
+        <div className="col-span-2 lg:col-span-1">
           <Heading>Contact Us</Heading>
           <form onSubmit={handleSend} className="flex flex-col gap-4">
             <input
