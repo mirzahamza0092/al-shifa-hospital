@@ -5,7 +5,17 @@ import FloatingIcon from '@/components/ui/FloatingIcon'
 import FeatureCard from '@/components/ui/FeatureCard'
 import { features } from '@/data/features'
 
-export default function AboutSection() {
+const DEFAULT_IMAGES: [string, string, string] = [
+  'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop',
+]
+
+interface AboutSectionProps {
+  images?: [string, string, string]
+}
+
+export default function AboutSection({ images = DEFAULT_IMAGES }: AboutSectionProps) {
   return (
     <section className="bg-white py-10 md:py-16 px-4 sm:px-6 md:px-12 overflow-hidden">
       <div className="max-w-[1300px] mx-auto grid md:grid-cols-2 gap-12 items-start">        
@@ -24,17 +34,17 @@ export default function AboutSection() {
           className="absolute -left-8 top-20 w-14 h-14 object-contain z-20"
         />
         <img
-          src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop"
+          src={images[0]}
           alt="Doctors reviewing a patient chart"
           className="rounded-tl-none rounded-tr-[4.0rem] rounded-bl-[4.0rem] rounded-br-[4.0rem] w-full h-[150px] sm:h-[200px] md:h-[250px] object-cover self-end"
         />
         <img
-          src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop"
+          src={images[1]}
           alt="Doctor examining a patient"
           className="rounded-tl-[4.0rem] rounded-tr-none rounded-bl-[4.0rem] rounded-br-[4.0rem] w-full h-[180px] sm:h-[230px] md:h-[300px] object-cover"
         />
         <img
-          src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop"
+          src={images[2]}
           alt="Eye examination at the hospital"
           className="rounded-tl-[4.0rem] rounded-tr-[4.0rem] rounded-bl-none rounded-br-[4.0rem] w-full h-[150px] sm:h-[200px] md:h-[250px] object-cover"
         />
