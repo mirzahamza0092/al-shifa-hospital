@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { HEADER_HEIGHT } from '@/components/layout/Header'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import YouTubeBackground from '@/components/ui/YouTubeBackground'
-
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 export default function Hero() {
   return (
     <section
@@ -16,6 +16,7 @@ export default function Hero() {
         backgroundSize: '100% 105%',
       }}
     >
+      <ScaleOnLarge>
       <div className="hero-inner relative flex items-center justify-between gap-8 px-12 pt-10 pb-8">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -88,8 +89,9 @@ export default function Hero() {
           transition={{ duration: 2.4, repeat: Infinity, repeatType: 'mirror', ease: 'linear' }}
           className="hidden md:block absolute -bottom-[70px] left-[38%] w-20 h-auto z-[3]"
         />
-      </div>
+       </div>
       <div className="h-[90px]" />
+      </ScaleOnLarge>
       <style jsx>{`
         @media (max-width: 900px) {
           .hero-inner {

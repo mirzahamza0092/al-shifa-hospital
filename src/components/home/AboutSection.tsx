@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import FeatureCard from '@/components/ui/FeatureCard'
 import { features } from '@/data/features'
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 
 const DEFAULT_IMAGES: [string, string, string] = [
   'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop',
@@ -18,6 +19,7 @@ interface AboutSectionProps {
 export default function AboutSection({ images = DEFAULT_IMAGES }: AboutSectionProps) {
   return (
     <section className="bg-white py-10 md:py-16 px-4 sm:px-6 md:px-12 overflow-hidden">
+      <ScaleOnLarge>
       <div className="max-w-[1300px] mx-auto grid md:grid-cols-2 gap-12 items-start">        
       <motion.div
           initial={{ opacity: 0, x: -40 }}
@@ -129,6 +131,7 @@ export default function AboutSection({ images = DEFAULT_IMAGES }: AboutSectionPr
               />
             </motion.div>
       </div>
+      </ScaleOnLarge>
     </section>
   )
 }
