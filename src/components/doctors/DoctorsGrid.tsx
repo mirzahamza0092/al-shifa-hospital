@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import DoctorListCard from '@/components/ui/DoctorListCard'
 import DoctorModal from '@/components/doctors/DoctorModal'
 import { doctorsList, DoctorItem } from '@/data/doctorsList'
-
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 const fieldClass =
   'w-full sm:w-[230px] border border-slate-300 bg-white rounded-md px-3 py-2.5 text-sm text-slate-700 outline-none focus:border-blue-900'
 
@@ -26,6 +26,7 @@ export default function DoctorsGrid() {
 
   return (
     <section className="bg-white py-10 md:py-16 px-4 sm:px-6 md:px-12">
+            <ScaleOnLarge>
       <div className="max-w-[1000px] mx-auto flex flex-col sm:flex-row justify-center gap-3 mb-10">
         <input
           type="text"
@@ -53,6 +54,7 @@ export default function DoctorsGrid() {
           ))}
         </div>
       )}
+      </ScaleOnLarge>
 
       <DoctorModal doctor={selected} onClose={() => setSelected(null)} />
     </section>

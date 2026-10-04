@@ -62,7 +62,7 @@ export default function Hero() {
           animation="float"
           duration={2.6}
           distance={14}
-          className="absolute left-1/2 top-20 -translate-x-1/2 w-20 h-auto z-[2]"
+          className="absolute left-1/2 top-20 -translate-x-1/2 w-16 h-auto z-[2]"
         />
         <motion.div
           initial={{ opacity: 0, x: 50 }}

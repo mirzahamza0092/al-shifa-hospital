@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { managers } from '@/data/managers'
 import FloatingIcon from '@/components/ui/FloatingIcon'
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 
 const SIZE = 300
 const C = SIZE / 2
@@ -94,6 +95,7 @@ export default function ManagementSection() {
         distance={12}
         className="hidden lg:block absolute right-[4%] top-1/2 w-10 h-10 object-contain"
       />
+            <ScaleOnLarge>
       <h2 className="text-center text-blue-900 font-extrabold text-[1.8rem] sm:text-[2.2rem] md:text-[2.6rem] mb-14">
         Meet Our Management
       </h2>
@@ -123,6 +125,7 @@ export default function ManagementSection() {
           ))}
         </div>
       </div>
+      </ScaleOnLarge>
     </section>
   )
 }

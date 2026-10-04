@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { gallery } from '@/data/gallery'
-
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 export default function GallerySection() {
   const [perPage, setPerPage] = useState(2)
   const [page, setPage] = useState(0)
@@ -28,6 +28,7 @@ export default function GallerySection() {
 
   return (
     <section className="bg-white pt-10 md:pt-16 pb-10 md:pb-16 px-4 sm:px-6 md:px-12">
+            <ScaleOnLarge>
       <div className="max-w-[1300px] mx-auto">
         <div className="text-center mb-6">
           <span className="inline-block bg-amber-50 text-amber-600 px-4 py-1.5 rounded-full font-semibold text-[0.85rem] border border-dashed border-amber-200">
@@ -100,6 +101,7 @@ export default function GallerySection() {
           </div>
         </div>
       </div>
+      </ScaleOnLarge>
     </section>
   )
 }

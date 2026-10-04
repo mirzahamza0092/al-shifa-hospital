@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, Quote } from 'lucide-react'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import { testimonials } from '@/data/testimonials'
-
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 const SIZE = 480
 const C = SIZE / 2
 const ANGLES = [-90, -30, 30, 90, 150, 210]
@@ -86,7 +86,7 @@ export default function TestimonialSection() {
         duration={8}
         className="hidden md:block absolute right-8 bottom-6 w-14 h-14 object-contain opacity-60"
       />
-
+      <ScaleOnLarge>
       <div className="relative max-w-[1300px] mx-auto">
         <div className="text-center mb-10">
           <span className="inline-block bg-amber-50 text-amber-600 px-4 py-1.5 rounded-full font-semibold text-[0.85rem] border border-dashed border-amber-200 mb-4">
@@ -214,6 +214,7 @@ export default function TestimonialSection() {
           </div>
         </div>
       </div>
+      </ScaleOnLarge>
     </section>
   )
 }

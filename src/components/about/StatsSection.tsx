@@ -2,10 +2,11 @@
 
 import { motion } from 'framer-motion'
 import { stats } from '@/data/stats'
-
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 export default function StatsSection() {
   return (
     <section className="bg-slate-200 py-10 md:py-16 px-4 sm:px-6 md:px-12">
+            <ScaleOnLarge>
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-8 md:gap-x-8 md:gap-y-10 lg:gap-10 pt-2 pl-2 sm:pt-3 sm:pl-3">
         {stats.map((s, i) => (
           <motion.div
@@ -32,6 +33,7 @@ export default function StatsSection() {
           </motion.div>
         ))}
       </div>
+      </ScaleOnLarge>
     </section>
   )
 }

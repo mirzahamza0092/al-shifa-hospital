@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { DocumentData } from '@/data/documents'
-
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 const boxClass =
   'border border-slate-500 px-2 py-1 text-[0.85rem] sm:text-base leading-snug text-justify text-slate-900'
 const labelClass = 'font-bold text-slate-900 text-sm sm:text-base mb-1.5'
@@ -10,6 +10,7 @@ const labelClass = 'font-bold text-slate-900 text-sm sm:text-base mb-1.5'
 export default function DocumentCard({ doc }: { doc: DocumentData }) {
   return (
     <section className="bg-white py-10 md:py-16 px-4 sm:px-6 md:px-12">
+            <ScaleOnLarge>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -63,6 +64,7 @@ export default function DocumentCard({ doc }: { doc: DocumentData }) {
           <p className="mt-16 sm:mt-24 text-[0.6rem] text-slate-800">{doc.footerNote}</p>
         )}
       </motion.div>
+      </ScaleOnLarge>
     </section>
   )
 }

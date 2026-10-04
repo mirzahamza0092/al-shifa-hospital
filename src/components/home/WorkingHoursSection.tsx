@@ -4,6 +4,7 @@ import { Stethoscope, Timer, PhoneCall, LucideIcon } from 'lucide-react'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import WorkingHoursCard from '@/components/ui/WorkingHoursCard'
 import { workingHoursCards, IconName } from '@/data/workingHoursData'
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 
 const ICONS: Record<IconName, LucideIcon> = { UserRound: Stethoscope, Timer, PhoneCall }
 
@@ -14,6 +15,7 @@ export default function WorkingHoursSection() {
         className="hidden md:block absolute top-1/2 left-0 w-full -translate-y-1/2 pointer-events-none"
         height="120"
         viewBox="0 0 1300 120"
+        preserveAspectRatio="none"
         fill="none"
       >
         <path
@@ -21,6 +23,7 @@ export default function WorkingHoursSection() {
           stroke="#cbd5e1"
           strokeWidth="2"
           strokeDasharray="8 8"
+          vectorEffect="non-scaling-stroke"
         />
       </svg>
 
@@ -43,7 +46,7 @@ export default function WorkingHoursSection() {
             distance={10}
             className="absolute right-10 top-2/3 w-6 h-6 object-contain"
         />
-
+      <ScaleOnLarge>
       <h2 className="relative text-blue-900 font-extrabold text-center text-[1.8rem] sm:text-[2.2rem] md:text-[2.6rem] mb-14">
         Working Hours
       </h2>
@@ -66,8 +69,9 @@ export default function WorkingHoursSection() {
                 </p>
               ))}
           </WorkingHoursCard>
-        ))}
+         ))}
       </div>
+      </ScaleOnLarge>
     </section>
   )
 }

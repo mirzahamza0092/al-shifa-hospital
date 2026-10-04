@@ -4,7 +4,7 @@ import ContentBlocks from '@/components/services/ContentBlocks'
 import FaqAccordion from '@/components/services/FaqAccordion'
 import ServiceSidebar from '@/components/services/ServiceSidebar'
 import { getServiceDetail } from '@/data/serviceDetails'
-
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 export default async function ServiceDetailPage({
   params,
 }: {
@@ -26,6 +26,7 @@ export default async function ServiceDetailPage({
       />
 
       <section className="bg-white py-10 md:py-16 px-4 sm:px-6 md:px-12">
+        <ScaleOnLarge>
         <div
           className={`max-w-[1100px] mx-auto grid gap-10 ${
             hasSide ? 'lg:grid-cols-[1fr_320px]' : ''
@@ -45,6 +46,7 @@ export default async function ServiceDetailPage({
 
           {hasSide && <ServiceSidebar items={detail.related} />}
         </div>
+        </ScaleOnLarge>
       </section>
     </>
   )

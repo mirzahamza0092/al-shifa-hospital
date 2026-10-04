@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { ArrowUp, Phone, MapPin } from 'lucide-react'
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa'
 import FloatingIcon from '@/components/ui/FloatingIcon'
-
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 const SOCIALS = [
   { Icon: FaFacebookF, color: '#1877f2' },
   { Icon: FaTwitter, color: '#1d9bf0' },
@@ -85,7 +85,7 @@ export default function Footer() {
         distance={80}
         className="hidden md:block absolute left-[12%] top-24 w-20 h-20 object-contain"
       />
-
+      <ScaleOnLarge>
       <div className="relative max-w-[1200px] mx-auto h-16 hidden md:block">
         <motion.img
           src="/images/ambulance.png"
@@ -228,6 +228,7 @@ export default function Footer() {
         © {new Date().getFullYear()} Al Shifa Hospital MB Din.{' '}
         <span className="text-amber-500">All Rights Reserved</span>
       </div>
+      </ScaleOnLarge>
 
       {/* Scroll to top */}
       {showTop && (

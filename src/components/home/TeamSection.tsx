@@ -4,6 +4,7 @@ import { useState } from 'react'
 import DoctorCard from '@/components/ui/DoctorCard'
 import { doctors } from '@/data/doctors'
 import FloatingIcon from '@/components/ui/FloatingIcon'
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 
 export default function TeamSection() {
   const [isPaused, setIsPaused] = useState(false)
@@ -16,7 +17,7 @@ export default function TeamSection() {
     <section className="relative bg-blue-900 md:bg-white pt-16 md:pt-20 pb-16 md:pb-20 overflow-hidden">
       <div className="hidden md:block absolute right-0 top-0 h-full w-[46%] rounded-l-[3rem] bg-blue-900 z-0" />
       <div className="hidden md:block absolute left-0 top-0 h-full w-[38%] bg-white z-20" />
-
+      <ScaleOnLarge>
       <div className="relative max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 items-center px-4 sm:px-6 md:px-12 overflow-visible">
         <FloatingIcon
           src="/images/handAndBox.PNG"
@@ -94,6 +95,7 @@ export default function TeamSection() {
           </div>
         </div>
       </div>
+      </ScaleOnLarge>
 
       <style jsx>{`
         .marquee-track {

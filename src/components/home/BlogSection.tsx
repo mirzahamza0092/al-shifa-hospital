@@ -3,7 +3,7 @@
 import BlogCard from '@/components/ui/BlogCard'
 import { blogs } from '@/data/blogs'
 import FloatingIcon from '@/components/ui/FloatingIcon'
-
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 export default function BlogSection() {
   const loopedBlogs = [...blogs, ...blogs]
 
@@ -58,6 +58,7 @@ export default function BlogSection() {
           vectorEffect="non-scaling-stroke"
         />
       </svg>
+            <ScaleOnLarge>
       <h2 className="relative text-center text-blue-900 font-extrabold text-[1.8rem] sm:text-[2.2rem] md:text-[2.6rem] mb-10 px-4">
         Latest News/Blogs
       </h2>
@@ -71,6 +72,7 @@ export default function BlogSection() {
           ))}
         </div>
       </div>
+      </ScaleOnLarge>
 
       <style jsx>{`
         .marquee-track {

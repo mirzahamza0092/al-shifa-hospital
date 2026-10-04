@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { HEADER_HEIGHT } from '@/components/layout/Header'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import { Home } from 'lucide-react'
-
+import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 interface AboutHeroProps {
   title?: string
   icon?: string
@@ -23,7 +23,7 @@ export default function AboutHero({
        style={{
         marginTop: -HEADER_HEIGHT,
         paddingTop: HEADER_HEIGHT,
-        paddingBottom: 40,
+        paddingBottom: 275,
       }}
     >
       <img
@@ -63,7 +63,7 @@ export default function AboutHero({
         distance={10}
         className="hidden md:block absolute left-[3%] top-[25%] w-5 h-5 object-contain z-[2]"
       />
-
+      <ScaleOnLarge>
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -83,6 +83,7 @@ export default function AboutHero({
           <span>{title}</span>
         </div>
       </motion.div>
+      </ScaleOnLarge>
     </section>
   )
 }
