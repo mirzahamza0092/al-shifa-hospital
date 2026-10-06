@@ -5,7 +5,40 @@ import { HEADER_HEIGHT } from '@/components/layout/Header'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import YouTubeBackground from '@/components/ui/YouTubeBackground'
 import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+const HEADING =
+  'Providing quality medical care with compassion, commitment and excellence 24/7'
+
+function useTypewriter(text: string, typeSpeed = 60, deleteSpeed = 30, pause = 1500) {
+  const [display, setDisplay] = useState('')
+  const [deleting, setDeleting] = useState(false)
+
+  useEffect(() => {
+    let t: ReturnType<typeof setTimeout>
+
+    if (!deleting && display === text) {
+      t = setTimeout(() => setDeleting(true), pause)
+    } else if (deleting && display === '') {
+      t = setTimeout(() => setDeleting(false), 500)
+    } else {
+      t = setTimeout(
+        () =>
+          setDisplay(
+            deleting
+              ? text.slice(0, display.length - 1)
+              : text.slice(0, display.length + 1)
+          ),
+        deleting ? deleteSpeed : typeSpeed
+      )
+    }
+    return () => clearTimeout(t)
+  }, [display, deleting, text, typeSpeed, deleteSpeed, pause])
+
+  return display
+}
 export default function Hero() {
+  const typed = useTypewriter(HEADING, 30, 15, 1000)
   return (
     <section
       className="hero-section relative z-[1] overflow-hidden bg-[#f8fafc] bg-top bg-no-repeat"
@@ -27,7 +60,7 @@ export default function Hero() {
           <img
             src="/images/goldenTeal.png"
             alt=""
-            className="hidden md:block w-20 h-auto mb-2.5 ml-[5.8rem]"
+            className="hidden md:block w-18 h-auto mb-2.5 ml-[5.8rem]"
           />
           <div className="flex items-center justify-center md:justify-start mb-4 ml-0 md:ml-[4.1rem]">
             <span className="inline-block bg-indigo-50 text-blue-900 px-4 py-1.5 rounded-full font-semibold text-[0.85rem] border border-dashed border-indigo-200">
@@ -35,9 +68,14 @@ export default function Hero() {
             </span>
           </div>
           <h1
-            className="text-blue-900 font-extrabold leading-[1.15] mb-6 ml-0 md:ml-[4.1rem] text-[1.7rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-[3rem]"
+            aria-label={HEADING}
+            className="relative text-blue-900 font-extrabold leading-[1.15] mb-6 ml-0 md:ml-[4.1rem] text-[1.4rem] sm:text-[1.7rem] md:text-[2rem] lg:text-[2.4rem]"
           >
-            Committed to providing quality healthcare to all our patients 24/7
+            <span className="invisible" aria-hidden="true">{HEADING}_</span>
+            <span className="absolute inset-0" aria-hidden="true">
+              {typed}
+              <span className="animate-pulse">_</span>
+            </span>
           </h1>
 
           <div className="flex items-center justify-center md:justify-start gap-2.5 mb-8">
@@ -46,8 +84,9 @@ export default function Hero() {
               animation="float"
               duration={2.2}
               distance={10}
-              className="w-[60px] h-[60px]"
+              className="w-[50px] h-[50px]"
             />
+            <Link href="/about">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -55,6 +94,7 @@ export default function Hero() {
             >
               Read More
             </motion.button>
+          </Link>
           </div>
         </motion.div>
         <FloatingIcon

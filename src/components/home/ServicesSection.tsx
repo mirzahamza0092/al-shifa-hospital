@@ -51,11 +51,7 @@ export default function ServicesSection() {
             </h2>
 
             <p className="text-blue-100 md:text-slate-600 leading-relaxed mb-8">
-              Al-Shifa Hospital offers a wide range of medical services with
-              modern facilities and a team of skilled doctors. The hospital
-              provides excellent care in areas like heart, brain, bone, and
-              mother &amp; baby health. We use advanced tools and the latest
-              treatments to ensure patients get the best care.
+              From routine consultations and diagnostic services to emergency care and specialized medical treatment, we strive to provide comprehensive healthcare under one roof. With modern diagnostic facilities, dedicated medical staff, and a patient-centered approach, Al-Shifa Hospital is committed to making quality healthcare accessible to the community.
             </p>
 
             <div className="relative isolate">

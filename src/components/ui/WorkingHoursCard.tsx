@@ -3,12 +3,13 @@
 import { motion } from 'framer-motion'
 import { ChevronRight, LucideIcon } from 'lucide-react'
 import { ReactNode } from 'react'
-
+import Link from 'next/link'
 interface WorkingHoursCardProps {
   icon: LucideIcon
   title: string
   children: ReactNode
   buttonLabel: string
+  href: string
   variant?: 'light' | 'dark'
 }
 
@@ -17,6 +18,7 @@ export default function WorkingHoursCard({
   title,
   children,
   buttonLabel,
+  href,
   variant = 'light',
 }: WorkingHoursCardProps) {
   const isDark = variant === 'dark'
@@ -62,8 +64,9 @@ export default function WorkingHoursCard({
           {children}
         </div>
 
-        <button
-          className={`mt-3 inline-flex items-center gap-3 self-start rounded-lg font-semibold text-sm pl-4 pr-1.5 py-1.5 transition-colors duration-500 ${
+        <Link
+          href={href}
+          className={`mt-3 inline-flex items-center gap-3 self-start rounded-lg font-semibold text-sm pl-4 pr-1.5 py-1.5 no-underline transition-colors duration-500 ${
             isDark
               ? 'bg-white text-blue-900'
               : 'bg-blue-900 text-white group-hover:bg-white group-hover:text-blue-900'
@@ -72,9 +75,7 @@ export default function WorkingHoursCard({
           {buttonLabel}
           <span
             className={`flex items-center justify-center w-10 h-10 rounded-md transition-colors duration-500 ${
-              isDark
-                ? 'bg-blue-900'
-                : 'bg-white group-hover:bg-blue-900'
+              isDark ? 'bg-blue-900' : 'bg-white group-hover:bg-blue-900'
             }`}
           >
             <ChevronRight
@@ -84,7 +85,7 @@ export default function WorkingHoursCard({
               }`}
             />
           </span>
-        </button>
+        </Link>
       </div>
     </motion.div>
   )

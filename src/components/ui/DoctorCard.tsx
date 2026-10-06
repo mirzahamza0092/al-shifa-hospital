@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Doctor } from '@/data/doctors'
-
+import Link from 'next/link'
 interface DoctorCardProps {
   doctor: Doctor
   isPaused: boolean
@@ -55,9 +55,13 @@ export default function DoctorCard({
     {doctor.name}
   </h4>
   <p className="text-slate-500 text-sm mb-20">{doctor.designation}</p>
-  <button className="mt-auto bg-blue-900 text-white text-sm font-semibold px-6 py-2.5 rounded-lg">
-    View More
-  </button>
+  <Link
+  href="/doctors"
+  onClick={(e) => e.stopPropagation()}
+  className="mt-auto inline-block bg-blue-900 text-white text-sm font-semibold px-6 py-2.5 rounded-lg no-underline"
+>
+  View More
+</Link>
 </div>
 </div>
   )

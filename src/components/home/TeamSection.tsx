@@ -5,6 +5,7 @@ import DoctorCard from '@/components/ui/DoctorCard'
 import { doctors } from '@/data/doctors'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
+import Link from 'next/link'
 
 export default function TeamSection() {
   const [isPaused, setIsPaused] = useState(false)
@@ -24,7 +25,7 @@ export default function TeamSection() {
           animation="float"
           duration={2.5}
           distance={10}
-          className="hidden md:block absolute left-[44%] -top-15 w-8 h-8 object-contain z-30"
+          className="hidden md:block absolute left-[44%] -top-8 w-8 h-8 object-contain z-30"
         />
         <FloatingIcon
           src="/images/goldenTeal.png"
@@ -51,18 +52,16 @@ export default function TeamSection() {
           </h2>
 
           <p className="text-blue-100 md:text-slate-600 leading-relaxed mb-8">
-            PAF Hospital Islamabad Unit II is one of the best hospitals in
-            Pakistan, known for trusted healthcare services and expert
-            medical care. Our dedicated team ensures top-quality treatment
-            for all specialities. From routine check-ups to specialized
-            care, we provide comprehensive healthcare solutions. Trust us
-            for compassionate and effective medical services.
+            At Al-Shifa Hospital, Mandi Bahauddin, our specialized departments bring together qualified doctors, experienced healthcare professionals, and modern medical facilities to provide comprehensive and patient-centered care. From emergency services and diagnostic care to specialized medical and surgical treatment, each department is dedicated to delivering safe, timely, and compassionate healthcare.
           </p>
 
           <div className="relative isolate">
-            <button className="bg-amber-500 text-white font-semibold px-8 py-3.5 rounded-lg">
+            <Link
+              href="/doctors"
+              className="inline-block bg-amber-500 text-white font-semibold px-8 py-3.5 rounded-lg no-underline"
+            >
               All Doctors
-            </button>
+            </Link>
             <FloatingIcon
               src="/images/bedSun.PNG"
               animation="float"

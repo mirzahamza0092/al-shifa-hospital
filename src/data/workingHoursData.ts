@@ -6,6 +6,7 @@ export interface WorkingHoursCardData {
   icon: IconName
   title: string
   buttonLabel: string
+  href: string
   lines?: string[]
   schedule?: { day: string; time: string }[]
 }
@@ -17,10 +18,11 @@ export const workingHoursCards: WorkingHoursCardData[] = [
     icon: 'UserRound',
     title: 'Make Appointment',
     buttonLabel: 'Appointment',
+    href: '/patient/appointment',
     lines: [
       '24-hour emergency service is available.',
       'For booking, please reach us at:',
-      '051-9564000.',
+      '0349-6601065.',
     ],
   },
   {
@@ -29,8 +31,9 @@ export const workingHoursCards: WorkingHoursCardData[] = [
     icon: 'Timer',
     title: 'OPD Working Hours',
     buttonLabel: 'Services',
+    href: '/services',
     schedule: [
-      { day: 'Mon - Sat :', time: '8:00AM - 03:00PM' },
+      { day: 'Mon - Sat :', time: '9:00AM - 05:00PM' },
       { day: 'Friday :', time: '08:00AM - 1:00PM' },
       { day: 'Sunday :', time: '24 hours Emergency' },
     ],
@@ -41,13 +44,14 @@ export const workingHoursCards: WorkingHoursCardData[] = [
     icon: 'PhoneCall',
     title: 'Reach Us',
     buttonLabel: 'Contact Us',
+    href: '/contact',
     lines: [
-      'UAN - 1464',
-      'Appointment - (051) 9564000',
+      'Appointment and ',
       'Medical Information',
-      '(051) 9567000',
+      '0349-6601065',
       'Accident & Emergency',
-      '(051) 9564210',
+      '0307-5501065',
+      'Location - Marala Road, Near Sit Sara Chowk, Mandi Bahauddin',
     ],
   },
 ]

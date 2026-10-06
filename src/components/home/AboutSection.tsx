@@ -5,11 +5,22 @@ import FloatingIcon from '@/components/ui/FloatingIcon'
 import FeatureCard from '@/components/ui/FeatureCard'
 import { features } from '@/data/features'
 import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
+import CountUp from '@/components/ui/CountUp'
+import Link from 'next/link'
+const START_YEAR = 2025
+const START_MONTH = 9
+
+function getYearsInHealthcare() {
+  const now = new Date()
+  const months =
+    (now.getFullYear() - START_YEAR) * 12 + (now.getMonth() - START_MONTH)
+  return Math.max(0, Math.floor(months / 12))
+}
 
 const DEFAULT_IMAGES: [string, string, string] = [
-  'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop',
+  '/images/home1.png',
+  '/images/home2.png',
+  '/images/home3.png',
 ]
 
 interface AboutSectionProps {
@@ -17,6 +28,7 @@ interface AboutSectionProps {
 }
 
 export default function AboutSection({ images = DEFAULT_IMAGES }: AboutSectionProps) {
+  const years = getYearsInHealthcare()
   return (
     <section className="bg-white py-10 md:py-16 px-4 sm:px-6 md:px-12 overflow-hidden">
       <ScaleOnLarge>
@@ -62,7 +74,7 @@ export default function AboutSection({ images = DEFAULT_IMAGES }: AboutSectionPr
 
           <div className="absolute top-3 left-3 -right-3 -bottom-3 bg-transparent border-2 border-blue-900 rounded-tl-[4.0rem] rounded-tr-[4.0rem] rounded-bl-[4.0rem] rounded-br-none flex flex-col items-center justify-center py-8 px-4 text-center z-10">
             <span className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-blue-900">
-              6+
+              <CountUp to={years} suffix="+" />
             </span>
             <span className="mt-2 font-bold text-blue-900">
               Years in Healthcare
@@ -93,14 +105,9 @@ export default function AboutSection({ images = DEFAULT_IMAGES }: AboutSectionPr
                 className="absolute right-4 top-1/2 -translate-y-1/2 w-16 h-16 object-contain opacity-20 -z-10"
               />
                 <p className="relative text-slate-600 leading-relaxed mb-8 mt-6">
-                  Al-Shifa Hospital MB Din is a premier healthcare institution known
-                  for its excellence in medical services. Our dedicated team of
-                  doctors, nurses, and staff ensures top-quality care for patients.
-                  Equipped with advanced facilities and adhering to international
-                  standards, we offer a wide range of medical treatments and
-                  services. Whether it&apos;s routine check-ups, emergencies, or
-                  specialized care, trust us to deliver compassionate and effective
-                  healthcare.
+                  Al-Shifa Hospital, Mandi Bahauddin provides quality medical care with compassion, professionalism, and a patient-first approach. Our doctors, nurses, and healthcare staff work around the clock to ensure timely and appropriate care.
+                  Under one roof, we offer 24/7 Emergency Services, specialist consultations, laboratory, radiology (CT Scan, CT Angio, Open MRI), ECG, pharmacy, blood bank, and ICU backup, making quality healthcare accessible to Mandi Bahauddin and surrounding areas.
+                  Our Commitment: Quality healthcare is more than treatment. It is compassion, trust, timely care, and putting patients first.
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-7 mb-8 w-full mt-8">
@@ -108,13 +115,15 @@ export default function AboutSection({ images = DEFAULT_IMAGES }: AboutSectionPr
                   <FeatureCard key={f.label} feature={f} />
                 ))}
               </div>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-blue-900 text-white border-0 px-7 py-3 rounded-lg font-semibold text-base cursor-pointer mt-2"
-              >
-              Read More
-              </motion.button>
+              <Link href="/about">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-blue-900 text-white border-0 px-7 py-3 rounded-lg font-semibold text-base cursor-pointer mt-2"
+                >
+                  Read More
+                </motion.button>
+              </Link>
                 <FloatingIcon
                   src="/images/bag.PNG"
                   animation="float"

@@ -4,9 +4,9 @@ import StatsSection from '@/components/about/StatsSection'
 import ManagementSection from '@/components/about/ManagementSection'
 
 const ABOUT_IMAGES: [string, string, string] = [
-  '/images/logoImage.png',
-  '/images/logoImage.png',
-  '/images/logoImage.png',
+  '/images/about1.png',
+  '/images/about2.png',
+  '/images/about3.png',
 ]
 
 export default function AboutPage() {

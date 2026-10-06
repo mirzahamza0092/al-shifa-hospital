@@ -58,6 +58,7 @@ export default function WorkingHoursSection() {
             icon={ICONS[card.icon]}
             title={card.title}
             buttonLabel={card.buttonLabel}
+            href={card.href}
             variant={card.variant}
           >
             {card.lines && card.lines.map((line, i) => <p key={i}>{line}</p>)}
