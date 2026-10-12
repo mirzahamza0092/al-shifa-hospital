@@ -1,15 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import ServiceCard from '@/components/ui/ServiceCard'
-import { services } from '@/data/services'
+import Link from 'next/link'
+import ServiceCard, { ServiceCardSkeleton } from '@/components/ui/ServiceCard'
+import { usePublicDepartments } from '@/hooks/usePublicDepartments'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
+
 export default function ServicesSection() {
   const [isPaused, setIsPaused] = useState(false)
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null)
 
-  const loopedServices = [...services, ...services]
+  const { marqueeDepartments, loading } = usePublicDepartments()
 
   return (
     <div className="bg-white pt-10 md:pt-16">
@@ -55,9 +57,12 @@ export default function ServicesSection() {
             </p>
 
             <div className="relative isolate">
-              <button className="bg-amber-500 text-white font-semibold px-8 py-3.5 rounded-lg">
+              <Link
+                href="/services"
+                className="inline-block bg-amber-500 text-white font-semibold px-8 py-3.5 rounded-lg no-underline"
+              >
                 All Services
-              </button>
+              </Link>
               <FloatingIcon
                 src="/images/aks.PNG"
                 animation="float"
@@ -69,25 +74,38 @@ export default function ServicesSection() {
           </div>
 
           <div className="md:col-span-8 md:-ml-24 md:w-screen relative h-full min-h-[420px] z-0">
-            <div
-              className="marquee-track relative z-0 flex gap-6 w-max py-10 pl-0"
-              style={{
-                animationPlayState: isPaused ? 'paused' : 'running',
-              }}
-            >
-              {loopedServices.map((service, index) => (
-                <ServiceCard
-                  key={`${service.id}-${index}`}
-                  service={service}
-                  isPaused={hoveredCardId === `${service.id}-${index}`}
-                  onCardHover={(hovering) => {
-                    setHoveredCardId(hovering ? `${service.id}-${index}` : null)
-                    setIsPaused(hovering)
-                  }}
-                  onCardClick={() => setIsPaused((prev) => !prev)}
-                />
-              ))}
-            </div>
+            {loading ? (
+              <div className="flex gap-6 w-max py-10">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <ServiceCardSkeleton key={i} />
+                ))}
+              </div>
+            ) : marqueeDepartments.length === 0 ? (
+              <p className="py-10 text-blue-100 md:text-slate-500">
+                No services available right now.
+              </p>
+            ) : (
+              <div
+                className="marquee-track relative z-0 flex gap-6 w-max py-10 pl-0"
+                style={{
+                  animationPlayState: isPaused ? 'paused' : 'running',
+                  animationDuration: `${Math.max(20, marqueeDepartments.length * 1.5)}s`,
+                }}
+              >
+                {marqueeDepartments.map((department, index) => (
+                  <ServiceCard
+                    key={`${department.id}-${index}`}
+                    department={department}
+                    isPaused={hoveredCardId === `${department.id}-${index}`}
+                    onCardHover={(hovering) => {
+                      setHoveredCardId(hovering ? `${department.id}-${index}` : null)
+                      setIsPaused(hovering)
+                    }}
+                    onCardClick={() => setIsPaused((prev) => !prev)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
         </ScaleOnLarge>

@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import DoctorCard from '@/components/ui/DoctorCard'
-import { doctors } from '@/data/doctors'
+import DoctorCard, { DoctorCardSkeleton } from '@/components/ui/DoctorCard'
+import { usePublicDoctors } from '@/hooks/usePublicDoctors'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 import Link from 'next/link'
@@ -11,7 +11,7 @@ export default function TeamSection() {
   const [isPaused, setIsPaused] = useState(false)
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null)
 
-  const loopedDoctors = [...doctors, ...doctors]
+  const { marqueeDoctors, loading } = usePublicDoctors()
 
   return (
     <div className="bg-white pt-10 md:pt-16">
@@ -73,25 +73,35 @@ export default function TeamSection() {
         </div>
 
         <div className="md:col-span-8 md:-ml-24 md:w-screen relative h-full min-h-[420px] z-0">
-          <div
-            className="marquee-track relative z-0 flex gap-6 w-max py-10 pl-0"
-            style={{
-              animationPlayState: isPaused ? 'paused' : 'running',
-            }}
-          >
-            {loopedDoctors.map((doctor, index) => (
-              <DoctorCard
-                key={`${doctor.id}-${index}`}
-                doctor={doctor}
-                isPaused={hoveredCardId === `${doctor.id}-${index}`}
-                onCardHover={(hovering) => {
-                  setHoveredCardId(hovering ? `${doctor.id}-${index}` : null)
-                  setIsPaused(hovering)
-                }}
-                onCardClick={() => setIsPaused((prev) => !prev)}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex gap-6 w-max py-10">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <DoctorCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : marqueeDoctors.length === 0 ? (
+            <p className="py-10 text-blue-100 md:text-slate-500">
+              No doctors available right now.
+            </p>
+          ) : (
+            <div
+              className="marquee-track relative z-0 flex gap-6 w-max py-10 pl-0"
+              style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+            >
+              {marqueeDoctors.map((doctor, index) => (
+                <DoctorCard
+                  key={`${doctor.id}-${index}`}
+                  doctor={doctor}
+                  isPaused={hoveredCardId === `${doctor.id}-${index}`}
+                  onCardHover={(hovering) => {
+                    setHoveredCardId(hovering ? `${doctor.id}-${index}` : null)
+                    setIsPaused(hovering)
+                  }}
+                  onCardClick={() => setIsPaused((prev) => !prev)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
       </ScaleOnLarge>

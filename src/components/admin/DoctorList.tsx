@@ -42,7 +42,7 @@ export default function DoctorList({ doctors, departments, onEdit, onDelete }: P
             </tr>
           ))}
           {doctors.length === 0 && (
-            <tr><td className="p-3 text-slate-500" colSpan={5}>Koi doctor nahi hai</td></tr>
+            <tr><td className="p-3 text-slate-500" colSpan={5}>No doctor found</td></tr>
           )}
         </tbody>
       </table>

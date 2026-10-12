@@ -1,10 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Doctor } from '@/data/doctors'
+import { Stethoscope } from 'lucide-react'
 import Link from 'next/link'
+import type { PublicDoctor } from '@/hooks/usePublicDoctors'
+
 interface DoctorCardProps {
-  doctor: Doctor
+  doctor: PublicDoctor
   isPaused: boolean
   onCardHover: (hovering: boolean) => void
   onCardClick: () => void
@@ -16,6 +19,10 @@ export default function DoctorCard({
   onCardHover,
   onCardClick,
 }: DoctorCardProps) {
+  const [imgFailed, setImgFailed] = useState(false)
+  const hasPhoto = !!doctor.photo_url && !imgFailed
+  const subtitle = doctor.designation || doctor.departmentName || ''
+
   return (
     <div
       onMouseEnter={() => onCardHover(true)}
@@ -23,46 +30,49 @@ export default function DoctorCard({
       onClick={onCardClick}
       className="relative flex-shrink-0 w-[250px] bg-white rounded-3xl overflow-hidden shadow-[0_-10px_20px_rgba(0,0,0,0.06),0_10px_30px_rgba(0,0,0,0.08)] flex flex-col items-center text-center cursor-pointer"
     >
-    <div className="relative w-full aspect-square">
-    <img
-        src="/images/imgframe.jpg"
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
-    />
-  <motion.div
-      animate={
-          isPaused
-          ? { x: [0, -3, 3, -3, 3, 0] }
-          : { x: 0 }
-      }
-      transition={
-          isPaused
-          ? { duration: 0.4, ease: 'easeInOut' }
-          : { duration: 0.15 }
-      }
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[65%] h-[65%] overflow-hidden rounded-md z-10"
-  >
-    <img
-        src={doctor.image}
-        alt={doctor.name}
-        className="w-full h-full object-cover"
-    />
-  </motion.div>
-</div>
+      <div className="relative w-full aspect-square">
+        <img
+          src="/images/imgframe.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+        />
+        <motion.div
+          animate={isPaused ? { x: [0, -3, 3, -3, 3, 0] } : { x: 0 }}
+          transition={isPaused ? { duration: 0.4, ease: 'easeInOut' } : { duration: 0.15 }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[65%] h-[65%] overflow-hidden rounded-md z-10"
+        >
+          {hasPhoto ? (
+            <img
+              src={doctor.photo_url as string}
+              alt={doctor.name}
+              onError={() => setImgFailed(true)}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 text-blue-900">
+              <Stethoscope size={64} strokeWidth={1.5} />
+            </div>
+          )}
+        </motion.div>
+      </div>
 
-<div className="px-5 pt-6 pb-8 flex flex-col items-center flex-1 w-full">
-  <h4 className="font-bold text-blue-900 text-base leading-snug mb-3">
-    {doctor.name}
-  </h4>
-  <p className="text-slate-500 text-sm mb-20">{doctor.designation}</p>
-  <Link
-  href="/doctors"
-  onClick={(e) => e.stopPropagation()}
-  className="mt-auto inline-block bg-blue-900 text-white text-sm font-semibold px-6 py-2.5 rounded-lg no-underline"
->
-  View More
-</Link>
-</div>
-</div>
+      <div className="px-5 pt-6 pb-8 flex flex-col items-center flex-1 w-full">
+        <h4 className="font-bold text-blue-900 text-base leading-snug mb-3">{doctor.name}</h4>
+        <p className="text-slate-500 text-sm mb-20">{subtitle}</p>
+        <Link
+          href="/doctors"
+          onClick={(e) => e.stopPropagation()}
+          className="mt-auto inline-block bg-blue-900 text-white text-sm font-semibold px-6 py-2.5 rounded-lg no-underline"
+        >
+          View More
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+export function DoctorCardSkeleton() {
+  return (
+    <div className="flex-shrink-0 w-[250px] h-[430px] rounded-3xl bg-slate-200/70 animate-pulse" />
   )
 }

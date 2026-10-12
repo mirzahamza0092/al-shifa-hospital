@@ -1,21 +1,26 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Service } from '@/data/services'
+import { HeartPulse } from 'lucide-react'
+import Link from 'next/link'
+import type { PublicDepartment } from '@/hooks/usePublicDepartments'
 
 interface ServiceCardProps {
-  service: Service
+  department: PublicDepartment
   isPaused: boolean
   onCardHover: (hovering: boolean) => void
   onCardClick: () => void
 }
 
 export default function ServiceCard({
-  service,
+  department,
   isPaused,
   onCardHover,
   onCardClick,
 }: ServiceCardProps) {
+  const [imgFailed, setImgFailed] = useState(false)
+
   return (
     <div
       onMouseEnter={() => onCardHover(true)}
@@ -30,35 +35,44 @@ export default function ServiceCard({
           className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
         />
         <motion.div
-          animate={
-            isPaused
-              ? { x: [0, -3, 3, -3, 3, 0] }
-              : { x: 0 }
-          }
-          transition={
-            isPaused
-              ? { duration: 0.4, ease: 'easeInOut' }
-              : { duration: 0.15 }
-          }
+          animate={isPaused ? { x: [0, -3, 3, -3, 3, 0] } : { x: 0 }}
+          transition={isPaused ? { duration: 0.4, ease: 'easeInOut' } : { duration: 0.15 }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[65%] h-[65%] overflow-hidden rounded-md z-10"
         >
-          <img
-            src={service.icon}
-            alt={service.title}
-            className="w-full h-full object-cover"
-          />
+          {imgFailed ? (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 text-blue-900">
+              <HeartPulse size={64} strokeWidth={1.5} />
+            </div>
+          ) : (
+            <img
+              src={department.iconUrl}
+              alt={department.name}
+              onError={() => setImgFailed(true)}
+              className="w-30 h-30 object-contain bg-white pl-10 mt-10"
+            />
+          )}
         </motion.div>
       </div>
 
       <div className="px-5 pt-6 pb-8 flex flex-col items-center flex-1 w-full">
         <h4 className="font-bold text-blue-900 text-base leading-snug mb-3">
-          {service.title}
+          {department.name}
         </h4>
-        <p className="text-slate-500 text-sm mb-20">{service.description}</p>
-        <button className="mt-auto bg-blue-900 text-white text-sm font-semibold px-6 py-2.5 rounded-lg">
+        <p className="text-slate-500 text-sm mb-20 line-clamp-3">{department.description}</p>
+        <Link
+          href={`/services/${department.slug}`}
+          onClick={(e) => e.stopPropagation()}
+          className="mt-auto inline-block bg-blue-900 text-white text-sm font-semibold px-6 py-2.5 rounded-lg no-underline"
+        >
           View More
-        </button>
+        </Link>
       </div>
     </div>
+  )
+}
+
+export function ServiceCardSkeleton() {
+  return (
+    <div className="flex-shrink-0 w-[250px] h-[430px] rounded-3xl bg-slate-200/70 animate-pulse" />
   )
 }

@@ -65,3 +65,13 @@ export async function deleteDoctor(id: string) {
   if (error) throw error
   return true
 }
+export async function getActiveDoctors() {
+  const { data, error } = await supabaseAdmin
+    .from('doctors')
+    .select('id, name, photo_url, designation, departments(name, slug)')
+    .eq('is_active', true)
+    .order('name')
+
+  if (error) throw error
+  return data
+}

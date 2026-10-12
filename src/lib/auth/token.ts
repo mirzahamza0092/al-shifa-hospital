@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 const JWT_SECRET = process.env.NEXTAUTH_SECRET!
 
 export function createToken(payload: { id: string; email: string; role: string }) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' })
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '365d' })
 }
 
 export function verifyToken(token: string) {

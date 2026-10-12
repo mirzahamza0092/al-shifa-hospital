@@ -14,14 +14,14 @@ export default function DoctorsPage() {
   async function handleSubmit(values: DoctorInput) {
     const ok = editing ? await update(editing.id, values) : await create(values)
     if (ok) setEditing(null)
-    else alert('Save nahi hua')
+    else alert('Not Saved')
     return ok
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('Delete karna hai?')) return
+    if (!confirm('Do you want to Delete?')) return
     const ok = await remove(id)
-    if (!ok) alert('Delete nahi hua. Shayad is doctor ki appointments ya schedule hai.')
+    if (!ok) alert('It has not been deleted. If there are doctors from that department, remove them first.')
   }
 
   return (

@@ -62,3 +62,12 @@ export async function deleteDepartment(id: string) {
   if (error) throw error
   return true
 }
+export async function getPublicDepartments() {
+  const { data, error } = await supabaseAdmin
+    .from('departments')
+    .select('id, name, slug, icon, description')
+    .order('name')
+
+  if (error) throw error
+  return data
+}

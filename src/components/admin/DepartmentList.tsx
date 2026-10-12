@@ -34,7 +34,7 @@ export default function DepartmentList({ departments, onEdit, onDelete }: Props)
             </tr>
           ))}
           {departments.length === 0 && (
-            <tr><td className="p-3 text-slate-500" colSpan={4}>Koi department nahi hai</td></tr>
+            <tr><td className="p-3 text-slate-500" colSpan={4}>No departments found</td></tr>
           )}
         </tbody>
       </table>

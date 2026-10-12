@@ -56,7 +56,7 @@ export default function DoctorForm({ editing, departments, loading, onSubmit, on
       <input className={inputClass} placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
       <input className={inputClass} placeholder="Designation (e.g. Consultant)" value={form.designation} onChange={(e) => setForm({ ...form, designation: e.target.value })} />
       <select className={inputClass} value={form.department_id} onChange={(e) => setForm({ ...form, department_id: e.target.value })}>
-        <option value="">-- Department select karo --</option>
+        <option value="">-- Select Department--</option>
         {departments.map((d) => (
           <option key={d.id} value={d.id}>{d.name}</option>
         ))}

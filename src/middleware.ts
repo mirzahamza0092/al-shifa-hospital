@@ -8,6 +8,15 @@ export function middleware(request: NextRequest) {
   const isAdminPageRoute = request.nextUrl.pathname.startsWith('/admin') &&
     request.nextUrl.pathname !== '/admin/login'
 
+  const isLoginPage = request.nextUrl.pathname === '/admin/login'
+
+  if (isLoginPage) {
+    const loginToken = request.cookies.get('admin_token')?.value
+    if (loginToken && verifyToken(loginToken)) {
+      return NextResponse.redirect(new URL('/admin/departments', request.url))
+    }
+  }
+
   if (isAdminApiRoute || isAdminPageRoute) {
     const token = request.cookies.get('admin_token')?.value
 
