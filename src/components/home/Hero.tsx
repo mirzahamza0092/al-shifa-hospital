@@ -7,38 +7,8 @@ import YouTubeBackground from '@/components/ui/YouTubeBackground'
 import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-const HEADING =
-  'Providing quality medical care with compassion, commitment and excellence 24/7'
 
-function useTypewriter(text: string, typeSpeed = 60, deleteSpeed = 30, pause = 1500) {
-  const [display, setDisplay] = useState('')
-  const [deleting, setDeleting] = useState(false)
-
-  useEffect(() => {
-    let t: ReturnType<typeof setTimeout>
-
-    if (!deleting && display === text) {
-      t = setTimeout(() => setDeleting(true), pause)
-    } else if (deleting && display === '') {
-      t = setTimeout(() => setDeleting(false), 500)
-    } else {
-      t = setTimeout(
-        () =>
-          setDisplay(
-            deleting
-              ? text.slice(0, display.length - 1)
-              : text.slice(0, display.length + 1)
-          ),
-        deleting ? deleteSpeed : typeSpeed
-      )
-    }
-    return () => clearTimeout(t)
-  }, [display, deleting, text, typeSpeed, deleteSpeed, pause])
-
-  return display
-}
 export default function Hero() {
-  const typed = useTypewriter(HEADING, 30, 15, 1000)
   return (
     <section
       className="hero-section relative z-[1] overflow-hidden bg-[#f8fafc] bg-top bg-no-repeat"
@@ -68,14 +38,9 @@ export default function Hero() {
             </span>
           </div>
           <h1
-            aria-label={HEADING}
-            className="relative text-blue-900 font-extrabold leading-[1.15] mb-6 ml-0 md:ml-[4.1rem] text-[1.4rem] sm:text-[1.7rem] md:text-[2rem] lg:text-[2.4rem]"
+            className="text-blue-900 font-extrabold leading-[1.15] mb-6 ml-0 md:ml-[4.1rem] text-[1.4rem] sm:text-[1.7rem] md:text-[2rem] lg:text-[2.4rem]"
           >
-            <span className="invisible" aria-hidden="true">{HEADING}_</span>
-            <span className="absolute inset-0" aria-hidden="true">
-              {typed}
-              <span className="animate-pulse">_</span>
-            </span>
+            Providing quality medical care with compassion, commitment and excellence 24/7
           </h1>
 
           <div className="flex items-center justify-center md:justify-start gap-2.5 mb-8">

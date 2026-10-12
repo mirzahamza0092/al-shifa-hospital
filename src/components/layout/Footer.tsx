@@ -134,6 +134,7 @@ export default function Footer() {
             { label: "Doctor's", href: '/doctors' },
             { label: 'Blogs', href: '/blogs' },
             { label: 'Complaint', href: '/feedback/complaint' },
+            { label: 'Admin', href: '/admin/login' },
           ].map((link) => (
             <Link
               key={link.href}

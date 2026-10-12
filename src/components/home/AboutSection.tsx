@@ -7,6 +7,7 @@ import { features } from '@/data/features'
 import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
 import CountUp from '@/components/ui/CountUp'
 import Link from 'next/link'
+import TypingHeading from '@/components/ui/TypingHeading'
 const START_YEAR = 2025
 const START_MONTH = 9
 
@@ -32,6 +33,7 @@ export default function AboutSection({ images = DEFAULT_IMAGES }: AboutSectionPr
   return (
     <section className="bg-white py-10 md:py-16 px-4 sm:px-6 md:px-12 overflow-hidden">
       <ScaleOnLarge>
+        <TypingHeading />
       <div className="max-w-[1300px] mx-auto grid md:grid-cols-2 gap-12 items-start">        
       <motion.div
           initial={{ opacity: 0, x: -40 }}
