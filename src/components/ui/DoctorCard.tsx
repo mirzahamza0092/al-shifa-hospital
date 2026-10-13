@@ -39,18 +39,18 @@ export default function DoctorCard({
         <motion.div
           animate={isPaused ? { x: [0, -3, 3, -3, 3, 0] } : { x: 0 }}
           transition={isPaused ? { duration: 0.4, ease: 'easeInOut' } : { duration: 0.15 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[65%] h-[65%] overflow-hidden rounded-md z-10"
+          className="absolute inset-x-0 mx-auto top-[24%] w-[65%] h-[65%] overflow-hidden rounded-md z-10"
         >
           {hasPhoto ? (
             <img
               src={doctor.photo_url as string}
               alt={doctor.name}
               onError={() => setImgFailed(true)}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-top"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 text-blue-900">
-              <Stethoscope size={64} strokeWidth={1.5} />
+            <div className="w-full h-full flex items-center justify-center text-blue-900">
+              <Stethoscope size={100} strokeWidth={1.5} />
             </div>
           )}
         </motion.div>

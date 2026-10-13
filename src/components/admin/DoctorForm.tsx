@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import type { Doctor, DoctorInput } from '@/hooks/admin/useDoctors'
 import type { Department } from '@/hooks/admin/useDepartments'
 import { inputClass, primaryBtn, secondaryBtn } from './adminStyles'
+import { useDoctorPhotoUpload } from '@/hooks/admin/useDoctorPhotoUpload'
 
 const EMPTY: DoctorInput = {
   name: '',
@@ -26,7 +27,7 @@ type Props = {
 
 export default function DoctorForm({ editing, departments, loading, onSubmit, onCancel }: Props) {
   const [form, setForm] = useState<DoctorInput>(EMPTY)
-
+  const { uploading, uploadError, uploadPhoto } = useDoctorPhotoUpload()
   useEffect(() => {
     setForm(
       editing
@@ -44,6 +45,15 @@ export default function DoctorForm({ editing, departments, loading, onSubmit, on
     )
   }, [editing])
 
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const input = e.target
+    const file = input.files?.[0]
+    if (!file) return
+
+    const url = await uploadPhoto(file)
+    if (url) setForm((f) => ({ ...f, photo_url: url }))
+    input.value = ''
+  }
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const ok = await onSubmit(form)
@@ -63,14 +73,29 @@ export default function DoctorForm({ editing, departments, loading, onSubmit, on
       </select>
       <input className={inputClass} placeholder="Specialization" value={form.specialization} onChange={(e) => setForm({ ...form, specialization: e.target.value })} />
       <input className={inputClass} placeholder="Qualifications" value={form.qualifications} onChange={(e) => setForm({ ...form, qualifications: e.target.value })} />
-      <input className={inputClass} placeholder="Photo URL" value={form.photo_url} onChange={(e) => setForm({ ...form, photo_url: e.target.value })} />
+
+      <div className="flex items-center gap-4">
+        <div className="w-16 h-16 rounded-full overflow-hidden bg-slate-100 border flex items-center justify-center text-xs text-slate-400 shrink-0">
+          {form.photo_url ? (
+            <img src={form.photo_url} alt="Doctor" className="w-full h-full object-cover" />
+          ) : (
+            'No photo'
+          )}
+        </div>
+        <div className="flex flex-col gap-1">
+          <input type="file" accept="image/*" onChange={handleFile} disabled={uploading} className="text-sm" />
+          {uploading && <span className="text-xs text-blue-900">Uploading...</span>}
+          {uploadError && <span className="text-xs text-red-600">{uploadError}</span>}
+        </div>
+      </div>
+
       <textarea className={inputClass} placeholder="Bio" value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} />
       <label className="flex items-center gap-2 text-sm">
         <input type="checkbox" checked={form.is_active} onChange={(e) => setForm({ ...form, is_active: e.target.checked })} />
         Active
       </label>
       <div className="flex gap-2">
-        <button type="submit" disabled={loading} className={primaryBtn}>
+        <button type="submit" disabled={loading || uploading} className={primaryBtn}>
           {loading ? 'Saving...' : editing ? 'Update' : 'Add'}
         </button>
         {editing && (

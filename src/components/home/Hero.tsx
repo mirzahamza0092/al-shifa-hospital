@@ -40,7 +40,7 @@ export default function Hero() {
           <h1
             className="text-blue-900 font-extrabold leading-[1.15] mb-6 ml-0 md:ml-[4.1rem] text-[1.4rem] sm:text-[1.7rem] md:text-[2rem] lg:text-[2.4rem]"
           >
-            Providing quality medical care with compassion, commitment and excellence 24/7
+            Providing quality medical care with <span className="text-amber-400">compassion</span> , <span className="text-amber-500">commitment</span> and <span className="text-amber-600">excellence</span> 24/7
           </h1>
 
           <div className="flex items-center justify-center md:justify-start gap-2.5 mb-8">
@@ -55,7 +55,7 @@ export default function Hero() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-amber-500 text-white border-0 px-8 py-3.5 rounded-lg font-semibold text-base cursor-pointer"
+              className="bg-blue-900 text-white border-0 px-8 py-3.5 rounded-lg font-semibold text-base cursor-pointer"
             >
               Read More
             </motion.button>

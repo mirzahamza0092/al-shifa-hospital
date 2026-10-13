@@ -49,10 +49,12 @@ export default function TypingHeading() {
 
   return (
     <div className="text-center mb-10 md:mb-14 px-2">
-      <h2 className="text-blue-900 font-bold text-xl sm:text-2xl md:text-3xl min-h-[2.5rem]">
-        Why Choose Al-Shifa{' '}
-        <span className="text-amber-500">{typed}</span>
-        <span className="animate-pulse">_</span>
+      <h2 className="text-blue-900 font-bold text-xl sm:text-2xl md:text-3xl flex flex-col md:flex-row items-center justify-center gap-1 md:gap-3">
+        <span className="whitespace-nowrap">Why Choose Al-Shifa</span>
+        <span className="inline-block min-h-[2rem] md:min-h-[2.5rem] md:w-[26ch] md:text-left text-amber-500 whitespace-nowrap">
+          {typed}
+          <span className="animate-pulse text-blue-900">_</span>
+        </span>
       </h2>
     </div>
   )

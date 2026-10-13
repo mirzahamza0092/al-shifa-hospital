@@ -21,6 +21,7 @@ export default function DoctorList({ doctors, departments, onEdit, onDelete }: P
       <table className="w-full text-sm">
         <thead className="bg-slate-100 text-left">
           <tr>
+            <th className="p-3">Photo</th>
             <th className="p-3">Name</th>
             <th className="p-3">Designation</th>
             <th className="p-3">Department</th>
@@ -31,6 +32,15 @@ export default function DoctorList({ doctors, departments, onEdit, onDelete }: P
         <tbody>
           {doctors.map((d) => (
             <tr key={d.id} className="border-t">
+              <td className="p-3">
+                <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-100 border flex items-center justify-center text-[10px] text-slate-400">
+                  {d.photo_url ? (
+                    <img src={d.photo_url} alt={d.name} className="w-full h-full object-cover" />
+                  ) : (
+                    'No pic'
+                  )}
+                </div>
+              </td>
               <td className="p-3 font-semibold">{d.name}</td>
               <td className="p-3">{d.designation || '-'}</td>
               <td className="p-3">{deptName(d.department_id)}</td>

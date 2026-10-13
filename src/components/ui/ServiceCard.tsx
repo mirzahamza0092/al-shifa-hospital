@@ -37,10 +37,10 @@ export default function ServiceCard({
         <motion.div
           animate={isPaused ? { x: [0, -3, 3, -3, 3, 0] } : { x: 0 }}
           transition={isPaused ? { duration: 0.4, ease: 'easeInOut' } : { duration: 0.15 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[65%] h-[65%] overflow-hidden rounded-md z-10"
+          className="absolute inset-x-0 mx-auto top-[24%] w-[65%] h-[65%] overflow-hidden rounded-md z-10"
         >
           {imgFailed ? (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 text-blue-900">
+            <div className="w-full h-full flex items-center justify-center text-blue-900">
               <HeartPulse size={64} strokeWidth={1.5} />
             </div>
           ) : (
@@ -48,7 +48,7 @@ export default function ServiceCard({
               src={department.iconUrl}
               alt={department.name}
               onError={() => setImgFailed(true)}
-              className="w-30 h-30 object-contain bg-white pl-10 mt-10"
+              className="w-full h-full object-contain bg-white p-2"
             />
           )}
         </motion.div>
