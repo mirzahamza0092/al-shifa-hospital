@@ -5,8 +5,8 @@ export interface GalleryItem {
 }
 
 export const gallery: GalleryItem[] = [
-  { id: 1, title: '', image: '/images/DSC_0968.jpg' },
-  { id: 2, title: '', image: '/images/DSC_0982.jpg' },
+  { id: 1, title: '', image: '/images/DSC_1094.jpg' },
+  { id: 2, title: '', image: '/images/DSC_1096.jpg' },
   { id: 3, title: '', image: '/images/DSC_1004.jpg' },
   { id: 4, title: '', image: '/images/DSC_1015.jpg' },
   { id: 5, title: '', image: '/images/DSC_1024.jpg' },
@@ -19,8 +19,8 @@ export const gallery: GalleryItem[] = [
   { id: 12, title: '', image: '/images/DSC_1046.jpg' },
   { id: 13, title: '', image: '/images/DSC_1053.jpg' },
   { id: 14, title: '', image: '/images/DSC_1063.jpg' },
-  { id: 15, title: '', image: '/images/DSC_1094.jpg' },
-  { id: 16, title: '', image: '/images/DSC_1096.jpg' },
+  { id: 15, title: '', image: '/images/DSC_0968.jpg' },
+  { id: 16, title: '', image: '/images/DSC_0982.jpg' },
   { id: 17, title: '', image: '/images/DSC_1098.jpg' },
   { id: 18, title: '', image: '/images/DSC_1155.jpg' },
   { id: 19, title: '', image: '/images/DSC_1063.jpg' },

@@ -51,7 +51,7 @@ export const workingHoursCards: WorkingHoursCardData[] = [
       '0349-6601065',
       'Accident & Emergency',
       '0307-5501065',
-      'Location - Marala Road, Near Sit Sara Chowk, Mandi Bahauddin',
+      'Location - Marala Road, Near Satt Sira Chowk, Mandi Bahauddin',
     ],
   },
 ]

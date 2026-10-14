@@ -1,6 +1,7 @@
 'use client'
 
 import { Calendar, ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 import { Blog } from '@/data/blogs'
 
 interface BlogCardProps {
@@ -19,7 +20,7 @@ export default function BlogCard({ blog }: BlogCardProps) {
       <div className="flex items-center gap-4 mt-5 px-3">
         <div className="flex items-center gap-2">
           <img
-            src="/images/Medical.png"
+            src="/images/logoImage.png"
             alt=""
             className="w-7 h-7 rounded-full object-contain"
           />
@@ -36,12 +37,15 @@ export default function BlogCard({ blog }: BlogCardProps) {
       </h4>
 
       <div className="px-3 mt-auto pt-14 pb-3">
-        <button className="inline-flex items-center gap-6 border-2 border-blue-900 rounded-lg pl-6 pr-1.5 py-1.5 text-blue-900 text-sm">
+        <Link
+          href={`/blogs/${blog.slug}`}
+          className="inline-flex items-center gap-6 border-2 border-blue-900 rounded-lg pl-6 pr-1.5 py-1.5 text-blue-900 text-sm"
+        >
           Read More
           <span className="w-8 h-8 rounded-md bg-blue-900 text-white flex items-center justify-center">
             <ChevronRight size={18} strokeWidth={3} />
           </span>
-        </button>
+        </Link>
       </div>
     </div>
   )
