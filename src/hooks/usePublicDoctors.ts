@@ -7,6 +7,7 @@ export type PublicDoctor = {
   name: string
   photo_url: string | null
   designation: string | null
+  qualifications: string | null
   departmentName: string | null
 }
 
@@ -32,6 +33,7 @@ export function usePublicDoctors() {
             name: d.name,
             photo_url: d.photo_url || null,
             designation: d.designation || null,
+            qualifications: d.qualifications || null,
             departmentName: dept?.name || null,
           }
         })

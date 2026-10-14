@@ -1,3 +1,4 @@
+import { Stethoscope } from 'lucide-react'
 const SIZE = 300
 const C = SIZE / 2
 const VERTEX = [0, 60, 120, 180, 240, 300]
@@ -23,7 +24,7 @@ const roundedHex = (r: number, corner: number, rot = 0) => {
   return d + 'Z'
 }
 
-export default function HexPhoto({ src, alt }: { src: string; alt: string }) {
+export default function HexPhoto({ src, alt }: { src?: string | null; alt: string }) {
   return (
     <div className="relative w-full max-w-[240px] aspect-square mx-auto">
       <svg
@@ -45,8 +46,17 @@ export default function HexPhoto({ src, alt }: { src: string; alt: string }) {
         />
       </svg>
 
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[52%] h-[52%] overflow-hidden rounded-b-[2.5rem]">
-        <img src={src} alt={alt} className="w-full h-full object-cover object-top" />
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[52%] overflow-hidden"
+        style={{ clipPath: 'polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%)' }}
+      >
+        {src ? (
+          <img src={src} alt={alt} className="w-full h-full object-cover object-top" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-blue-900">
+            <Stethoscope size={56} strokeWidth={1.5} />
+          </div>
+        )}
       </div>
     </div>
   )

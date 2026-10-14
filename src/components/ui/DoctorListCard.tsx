@@ -45,7 +45,7 @@ export default function DoctorListCard({
             <Eye size={18} />
           </button>
           <Link
-            href={`/patient/appointment?doctor=${doctor.slug}`}
+            href={`/patient/appointment?doctor=${doctor.id}`}
             aria-label="Book appointment"
             title="Book appointment"
             className={iconBtn}
@@ -55,5 +55,10 @@ export default function DoctorListCard({
         </div>
       </div>
     </motion.div>
+  )
+}
+export function DoctorListCardSkeleton() {
+  return (
+    <div className="w-full max-w-[300px] mx-auto h-[380px] rounded-3xl bg-slate-200/70 animate-pulse" />
   )
 }
