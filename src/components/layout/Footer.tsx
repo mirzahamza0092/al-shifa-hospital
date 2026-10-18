@@ -107,7 +107,7 @@ export default function Footer() {
 
           <p className="text-sm text-slate-600 leading-relaxed flex gap-2">
             <MapPin size={18} className="shrink-0 mt-0.5 text-amber-500" />
-            Main Road, MB Din, Punjab, Pakistan
+            Murala Road, Near Satt Sira Chowk, Mandi Bahauddin Punjab, Pakistan
           </p>
 
           <div className="mt-6 space-y-3">
