@@ -4,7 +4,7 @@ import { Calendar } from 'lucide-react'
 import AboutHero from '@/components/about/AboutHero'
 import BlogContent from '@/components/blogs/BlogContent'
 import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
-import { getAllBlogs, getBlogBySlug } from '@/components/services/blogService'
+import { getAllBlogs, getBlogBySlug } from '@/services/blogService'
 
 type Props = { params: Promise<{ slug: string }> }
 

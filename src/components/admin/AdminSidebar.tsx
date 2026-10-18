@@ -2,17 +2,19 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Stethoscope, Building2, Users, LogOut } from 'lucide-react'
+import { Stethoscope, Building2, Users, MessageSquare, LogOut } from 'lucide-react'
+import { useUnreadFeedbackCounts } from '@/hooks/admin/useUnreadFeedbackCounts'
 
 const ITEMS = [
   { label: 'Departments', href: '/admin/departments', Icon: Building2 },
   { label: 'Doctors', href: '/admin/doctors', Icon: Users },
+  { label: 'Feedback', href: '/admin/feedback', Icon: MessageSquare },
 ]
 
 export default function AdminSidebar() {
   const pathname = usePathname()
   const router = useRouter()
-
+  const { counts } = useUnreadFeedbackCounts()
   async function handleLogout() {
     await fetch('/api/admin/logout', { method: 'POST' })
     router.push('/admin/login')
@@ -43,6 +45,11 @@ export default function AdminSidebar() {
               >
                 <Icon size={16} />
                 {label}
+                {href === '/admin/feedback' && counts.total > 0 && (
+                  <span className="min-w-[1.25rem] rounded-full bg-amber-500 px-1.5 py-0.5 text-center text-[0.7rem] font-bold leading-none text-white">
+                    {counts.total > 99 ? '99+' : counts.total}
+                  </span>
+                )}
               </Link>
             )
           })}

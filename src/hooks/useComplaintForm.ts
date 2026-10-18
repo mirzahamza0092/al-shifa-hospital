@@ -1,7 +1,7 @@
 'use client'
 
 import { useFeedbackForm } from '@/hooks/useFeedbackForm'
-import { validateComplaint, type ComplaintInput } from '@/components/services/feedbackService'
+import { validateComplaint, type ComplaintInput } from '@/services/feedbackService'
 
 const INITIAL_VALUES: ComplaintInput = {
   patient_name: '',

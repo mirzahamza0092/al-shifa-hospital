@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { uploadDoctorPhoto } from '@/db/repositories/storageRepository'
-
+import { requireAdmin } from '@/lib/auth/requireAdmin'
 const MAX_SIZE = 2 * 1024 * 1024
 
 export async function POST(request: NextRequest) {
+  const unauthorized = requireAdmin(request)
+  if (unauthorized) return unauthorized
+
   try {
     const formData = await request.formData()
     const file = formData.get('file')

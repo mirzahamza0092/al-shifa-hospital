@@ -4,7 +4,7 @@ import {
   normalizePatientFeedback,
   parsePatientFeedbackBody,
   validatePatientFeedback,
-} from '@/components/services/feedbackService'
+} from '@/services/feedbackService'
 
 export async function POST(request: NextRequest) {
   try {

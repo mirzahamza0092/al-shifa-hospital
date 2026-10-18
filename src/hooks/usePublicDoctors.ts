@@ -26,7 +26,9 @@ export function usePublicDoctors() {
         const data = await res.json()
         if (cancelled) return
 
-        const list: PublicDoctor[] = (data.doctors || []).map((d: any) => {
+        const list: PublicDoctor[] = (data.doctors || [])
+          .filter((d: any) => d.is_active !== false)
+          .map((d: any) => {
           const dept = Array.isArray(d.departments) ? d.departments[0] : d.departments
           return {
             id: d.id,

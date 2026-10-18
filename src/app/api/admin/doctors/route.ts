@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAllDoctors, createDoctor } from '@/db/repositories/doctorRepository'
-
+import { requireAdmin } from '@/lib/auth/requireAdmin'
 export async function GET() {
   try {
     const doctors = await getAllDoctors()
@@ -11,6 +11,9 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const unauthorized = requireAdmin(request)
+  if (unauthorized) return unauthorized
+
   try {
     const body = await request.json()
 

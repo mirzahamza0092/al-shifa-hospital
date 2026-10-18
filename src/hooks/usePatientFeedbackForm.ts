@@ -5,7 +5,7 @@ import { FEEDBACK_LOCATIONS } from '@/data/feedbackOptions'
 import {
   validatePatientFeedback,
   type PatientFeedbackInput,
-} from '@/components/services/feedbackService'
+} from '@/services/feedbackService'
 
 export type PatientFeedbackKind = 'compliment' | 'suggestion'
 

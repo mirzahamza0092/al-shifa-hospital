@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateDepartment, deleteDepartment } from '@/db/repositories/departmentRepository'
-
+import { requireAdmin } from '@/lib/auth/requireAdmin'
 type Ctx = { params: Promise<{ id: string }> }
 
 export async function PUT(request: NextRequest, { params }: Ctx) {
+  const unauthorized = requireAdmin(request)
+  if (unauthorized) return unauthorized
+
   try {
     const { id } = await params
     const body = await request.json()
@@ -14,7 +17,10 @@ export async function PUT(request: NextRequest, { params }: Ctx) {
   }
 }
 
-export async function DELETE(_request: NextRequest, { params }: Ctx) {
+export async function DELETE(request: NextRequest, { params }: Ctx) {
+  const unauthorized = requireAdmin(request)
+  if (unauthorized) return unauthorized
+
   try {
     const { id } = await params
     await deleteDepartment(id)

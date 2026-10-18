@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createComplaint } from '@/db/repositories/complaintRepository'
-import { normalizeComplaint, parseComplaintBody, validateComplaint } from '@/components/services/feedbackService'
+import { normalizeComplaint, parseComplaintBody, validateComplaint } from '@/services/feedbackService'
 
 export async function POST(request: NextRequest) {
   try {
