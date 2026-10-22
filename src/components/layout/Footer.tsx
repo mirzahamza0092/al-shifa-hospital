@@ -4,23 +4,22 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowUp, Phone, MapPin } from 'lucide-react'
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa'
+import { FaFacebookF, FaInstagram, FaYoutube, FaTiktok } from 'react-icons/fa'
 import FloatingIcon from '@/components/ui/FloatingIcon'
 import ScaleOnLarge from '@/components/ui/ScaleOnLarge'
+import { usePublicDepartments } from '@/hooks/usePublicDepartments'
 const SOCIALS = [
-  { Icon: FaFacebookF, color: '#1877f2' },
-  { Icon: FaTwitter, color: '#1d9bf0' },
-  { Icon: FaInstagram, color: '#e1306c' },
-  { Icon: FaLinkedinIn, color: '#0a66c2' },
-  { Icon: FaYoutube, color: '#ff0000' },
+  { Icon: FaFacebookF, color: '#1877f2', href: 'https://www.facebook.com/AlShifaHospitalMBDin', label: 'Facebook' },
+  { Icon: FaInstagram, color: '#e1306c', href: 'https://www.instagram.com/alshifamandibahauddin/', label: 'Instagram' },
+  { Icon: FaYoutube, color: '#ff0000', href: 'https://www.youtube.com/@Al-ShifaHospitalMBDin', label: 'YouTube' },
+  { Icon: FaTiktok, color: '#000000', href: 'https://www.tiktok.com/@alshifambdin', label: 'TikTok' },
 ]
 
 const PHONES = [
-  { label: 'Medical Information', number: '051-1234567' },
-  { label: 'Appointment', number: '051-1234568' },
-  { label: 'Hospital Exchange', number: '051-1234569' },
+  { label: 'Appointment and Medical Information', number: '0349-6601065' },
+  { label: 'Accident & Emergency', number: '0307-5501065' },
 ]
-
+const FOOTER_SERVICES_LIMIT = 4
 const inputClass =
   'w-full bg-white rounded-lg px-4 py-3 text-sm text-slate-700 placeholder:text-slate-700 shadow-[0_4px_14px_rgba(15,37,87,0.08)] outline-none focus:ring-2 focus:ring-amber-300'
 
@@ -45,7 +44,10 @@ export default function Footer() {
   const [email, setEmail] = useState('')
   const [mobile, setMobile] = useState('')
   const [message, setMessage] = useState('')
-
+  const [sending, setSending] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const { departments } = usePublicDepartments()
+  const footerServices = departments.slice(0, FOOTER_SERVICES_LIMIT)
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 400)
     window.addEventListener('scroll', onScroll)
@@ -56,10 +58,25 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  async function handleSend(e: React.FormEvent) {
-    e.preventDefault()
-    alert('OTP sent (placeholder — Contact API baad mein connect hoga)')
+async function handleSend(e: React.FormEvent) {
+  e.preventDefault()
+  setSending(true)
+  setStatus('idle')
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, mobile, message }),
+    })
+    if (!res.ok) throw new Error('failed')
+    setStatus('success')
+    setName(''); setEmail(''); setMobile(''); setMessage('')
+  } catch {
+    setStatus('error')
+  } finally {
+    setSending(false)
   }
+}
 
   return (
     <footer
@@ -149,22 +166,21 @@ export default function Footer() {
         {/* Column 3: Our Services */}
         <div>
           <Heading>Our Service</Heading>
-          {[
-            { label: 'Surgical', href: '/services/surgical' },
-            { label: 'Medicine', href: '/services/medicine' },
-            { label: 'Emergency Services', href: '/services/emergency' },
-            { label: 'Gynae & Obs', href: '/services/gynae-obs' },
-            { label: 'Psychiatry', href: '/services/psychiatry' },
-            { label: 'View All', href: '/services' },
-          ].map((link) => (
+          {footerServices.map((service) => (
             <Link
-              key={link.href}
-              href={link.href}
+              key={service.id}
+              href={`/services/${service.slug}`}
               className="block text-sm text-slate-700 mb-3 hover:text-amber-500 transition"
             >
-              {link.label}
+              {service.name}
             </Link>
           ))}
+          <Link
+            href="/services"
+            className="block text-sm text-slate-700 mb-3 hover:text-amber-500 transition"
+          >
+            View All
+          </Link>
         </div>
 
         {/* Column 4: Contact form */}
@@ -203,17 +219,27 @@ export default function Footer() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               type="submit"
-              className="bg-amber-400 text-white font-semibold rounded-lg py-3 shadow-[0_6px_16px_rgba(245,158,11,0.3)]"
+              disabled={sending}
+              className="bg-amber-400 text-white font-semibold rounded-lg py-3 shadow-[0_6px_16px_rgba(245,158,11,0.3)] disabled:opacity-60"
             >
-              Send OTP
+              {sending ? 'Sending...' : 'Send Message'}
             </motion.button>
+            {status === 'success' && (
+              <p className="text-sm text-green-600">Aap ka message bhej diya gaya hai. Shukriya!</p>
+            )}
+            {status === 'error' && (
+              <p className="text-sm text-red-600">Message nahi bheja ja saka, dobara koshish karein.</p>
+            )}
           </form>
 
           <div className="flex gap-4 mt-5">
-            {SOCIALS.map(({ Icon, color }, i) => (
+            {SOCIALS.map(({ Icon, color, href, label }) => (
               <motion.a
-                key={i}
-                href="#"
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
                 whileHover={{ scale: 1.2 }}
                 style={{ color }}
               >
@@ -225,10 +251,18 @@ export default function Footer() {
       </div>
 
       {/* Copyright */}
-      <div className="relative max-w-[1200px] mx-auto mt-10 pt-4 border-t border-slate-300 text-center text-xs text-slate-600">
-        © {new Date().getFullYear()} Al Shifa Hospital MB Din.{' '}
-        <span className="text-amber-500">All Rights Reserved</span>
-      </div>
+        <div className="relative max-w-[1200px] mx-auto mt-10 pt-4 border-t border-slate-300 text-center text-xs text-slate-600">
+          <p>
+            © {new Date().getFullYear()} Al Shifa Hospital MB Din.{' '}
+            <span className="text-amber-500">All Rights Reserved</span>
+          </p>
+          <p className="mt-1">
+            Powered by <span className="font-semibold text-blue-900">Experts IT Agency</span>{' '}
+            <a href="tel:03455759505" className="text-amber-500 hover:underline">
+              03455759505
+            </a>
+          </p>
+        </div>
       </ScaleOnLarge>
 
       {/* Scroll to top */}

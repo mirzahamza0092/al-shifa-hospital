@@ -14,7 +14,7 @@ export default function BlogCard({ blog }: BlogCardProps) {
       <img
         src={blog.image}
         alt={blog.title}
-        className="w-full h-[230px] object-cover rounded-lg"
+        className="w-full aspect-[1200/630] object-cover rounded-lg"
       />
 
       <div className="flex items-center gap-4 mt-5 px-3">
